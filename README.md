@@ -5,18 +5,18 @@ para listar, ver detalle, crear, editar el estado, eliminar mascotas, y gestiona
 
 ## Instalación y ejecución
 
-\`\`\`bash
+```bash
 npm install
 npm run dev
-\`\`\`
+```
 
 Abre la URL que muestre la terminal (por defecto `http://localhost:5173`).
 
 Para revisar el código con el linter:
 
-\`\`\`bash
+```bash
 npm run lint
-\`\`\`
+```
 
 ## Endpoints utilizados
 
