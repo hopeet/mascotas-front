@@ -1,15 +1,20 @@
 import { useEffect, useState } from 'react';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../api/api';
 import { parsearErrorApi } from '../api/errores';
 import ErrorAlert from '../components/ErrorAlert';
-import Comentarios from '../components/Comentarios'
+import Comentarios from '../components/Comentarios';
+
+const ESTADOS = ['perdida', 'encontrada', 'en_adopcion', 'adoptada'];
 
 function MascotaDetail() {
   const { id } = useParams();
+  const navigate = useNavigate();
+
   const [mascota, setMascota] = useState(null);
   const [cargando, setCargando] = useState(true);
   const [error, setError] = useState(null);
+  const [eliminando, setEliminando] = useState(false);
 
   async function fetchMascota() {
     setCargando(true);
@@ -27,6 +32,31 @@ function MascotaDetail() {
   useEffect(() => {
     fetchMascota();
   }, [id]);
+
+  async function cambiarEstado(nuevoEstado) {
+    setError(null);
+    try {
+      await api.patch(`/mascotas/${id}/`, { estado: nuevoEstado });
+      await fetchMascota();
+    } catch (err) {
+      setError(parsearErrorApi(err));
+    }
+  }
+
+  async function eliminarMascota() {
+    const confirmar = window.confirm(`¿Eliminar a ${mascota.nombre}? Esta acción no se puede deshacer.`);
+    if (!confirmar) return;
+
+    setEliminando(true);
+    setError(null);
+    try {
+      await api.delete(`/mascotas/${id}/`);
+      navigate('/');
+    } catch (err) {
+      setError(parsearErrorApi(err));
+      setEliminando(false);
+    }
+  }
 
   if (cargando) return <p>Cargando mascota...</p>;
 
@@ -52,8 +82,18 @@ function MascotaDetail() {
         <li><strong>Tipo:</strong> {mascota.tipo_animal}</li>
         <li><strong>Raza:</strong> {mascota.raza || '—'}</li>
         <li><strong>Edad:</strong> {mascota.edad ?? '—'}</li>
-        <li><strong>Estado:</strong> {mascota.estado}</li>
       </ul>
+
+      <label htmlFor="estado">Estado:</label>
+      <select id="estado" value={mascota.estado} onChange={(e) => cambiarEstado(e.target.value)}>
+        {ESTADOS.map((estado) => <option key={estado} value={estado}>{estado}</option>)}
+      </select>
+
+      <br /><br />
+      <button type="button" onClick={eliminarMascota} disabled={eliminando}>
+        {eliminando ? 'Eliminando...' : 'Eliminar mascota'}
+      </button>
+
       <Comentarios
         mascotaId={id}
         comentarios={mascota.comentarios || []}
