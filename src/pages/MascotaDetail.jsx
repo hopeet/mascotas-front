@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import api from '../api/api';
 import { parsearErrorApi } from '../api/errores';
 import ErrorAlert from '../components/ErrorAlert';
+import Comentarios from '../components/Comentarios'
 
 function MascotaDetail() {
   const { id } = useParams();
@@ -53,6 +54,11 @@ function MascotaDetail() {
         <li><strong>Edad:</strong> {mascota.edad ?? '—'}</li>
         <li><strong>Estado:</strong> {mascota.estado}</li>
       </ul>
+      <Comentarios
+        mascotaId={id}
+        comentarios={mascota.comentarios || []}
+        onCambio={fetchMascota}
+      />
     </div>
   );
 }
