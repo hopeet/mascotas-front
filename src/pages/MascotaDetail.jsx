@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { useParams, useNavigate, Link } from 'react-router-dom';
 import api from '../api/api';
 import { parsearErrorApi } from '../api/errores';
@@ -16,7 +16,7 @@ function MascotaDetail() {
   const [error, setError] = useState(null);
   const [eliminando, setEliminando] = useState(false);
 
-  async function fetchMascota() {
+  const fetchMascota = useCallback(async () => {
     setCargando(true);
     setError(null);
     try {
@@ -27,11 +27,11 @@ function MascotaDetail() {
     } finally {
       setCargando(false);
     }
-  }
+  }, [id]);
 
   useEffect(() => {
     fetchMascota();
-  }, [id]);
+  }, [fetchMascota]);
 
   async function cambiarEstado(nuevoEstado) {
     setError(null);
