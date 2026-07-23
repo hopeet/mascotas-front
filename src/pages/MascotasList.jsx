@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import api from '../api/api';
 import { parsearErrorApi } from '../api/errores';
 import MascotaCard from '../components/MascotaCard';
@@ -28,6 +29,7 @@ function MascotasList() {
   return (
     <div>
       <h1>Mascotas</h1>
+      <Link to="/mascotas/nueva">+ Registrar mascota</Link>
       <ErrorAlert error={error} />
       <div className="grid-mascotas">
         {mascotas.map((m) => <MascotaCard key={m.id} mascota={m} />)}
