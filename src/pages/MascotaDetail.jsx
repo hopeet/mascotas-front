@@ -58,13 +58,13 @@ function MascotaDetail() {
     }
   }
 
-  if (cargando) return <p>Cargando mascota...</p>;
+  if (cargando) return <p className="texto-cargando">Cargando mascota...</p>;
 
   if (error?.tipo === 'no_encontrado') {
     return (
-      <div>
+      <div className="pagina-detalle">
         <ErrorAlert error={error} />
-        <Link to="/">Volver al listado</Link>
+        <Link to="/" className="volver">← Volver al listado</Link>
       </div>
     );
   }
@@ -72,27 +72,35 @@ function MascotaDetail() {
   if (!mascota) return null;
 
   return (
-    <div>
-      <Link to="/">← Volver al listado</Link>
+    <div className="pagina-detalle">
+      <Link to="/" className="volver">← Volver al listado</Link>
       <ErrorAlert error={error} />
-      <img src={mascota.imagen} alt={mascota.nombre} width="250" />
-      <h1>{mascota.nombre}</h1>
-      <p>{mascota.descripcion}</p>
-      <ul>
-        <li><strong>Tipo:</strong> {mascota.tipo_animal}</li>
-        <li><strong>Raza:</strong> {mascota.raza || '—'}</li>
-        <li><strong>Edad:</strong> {mascota.edad ?? '—'}</li>
-      </ul>
 
-      <label htmlFor="estado">Estado:</label>
-      <select id="estado" value={mascota.estado} onChange={(e) => cambiarEstado(e.target.value)}>
-        {ESTADOS.map((estado) => <option key={estado} value={estado}>{estado}</option>)}
-      </select>
+      <div className="detalle-card">
+        <img src={mascota.imagen} alt={mascota.nombre} className="detalle-imagen" />
 
-      <br /><br />
-      <button type="button" onClick={eliminarMascota} disabled={eliminando}>
-        {eliminando ? 'Eliminando...' : 'Eliminar mascota'}
-      </button>
+        <div className="detalle-info">
+          <h1 className="detalle-nombre">{mascota.nombre}</h1>
+          <p className="detalle-descripcion">{mascota.descripcion}</p>
+
+          <ul className="detalle-lista">
+            <li><strong>Tipo:</strong> {mascota.tipo_animal}</li>
+            <li><strong>Raza:</strong> {mascota.raza || '—'}</li>
+            <li><strong>Edad:</strong> {mascota.edad ?? '—'}</li>
+          </ul>
+
+          <label htmlFor="estado" className="detalle-label">Estado:</label>
+          <select id="estado" value={mascota.estado} onChange={(e) => cambiarEstado(e.target.value)}>
+            {ESTADOS.map((estado) => <option key={estado} value={estado}>{estado}</option>)}
+          </select>
+
+          <div className="detalle-acciones">
+            <button type="button" onClick={eliminarMascota} disabled={eliminando}>
+              {eliminando ? 'Eliminando...' : 'Eliminar mascota'}
+            </button>
+          </div>
+        </div>
+      </div>
 
       <Comentarios
         mascotaId={id}

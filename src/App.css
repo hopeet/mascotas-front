@@ -133,12 +133,67 @@ button:hover { background: #255a3f; }
 button:disabled { background: #9bbfa9; cursor: not-allowed; }
 
 /* Detalle de mascota */
-img[width="250"] {
-  border-radius: 10px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+/* Detalle de mascota */
+.pagina-detalle {
+  max-width: 700px;
+  margin: 0 auto;
 }
 
-ul { padding-left: 1.2rem; }
+.volver {
+  display: inline-block;
+  margin-bottom: 1rem;
+  color: white;
+}
+
+.detalle-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+  padding: 1.5rem;
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.detalle-imagen {
+  width: 220px;
+  height: 220px;
+  object-fit: cover;
+  border-radius: 10px;
+  flex-shrink: 0;
+}
+
+.detalle-info { flex: 1; min-width: 220px; }
+
+.detalle-nombre {
+  color: #222;
+  text-align: left;
+  margin: 0 0 0.5rem;
+  font-size: 1.8rem;
+}
+
+.detalle-descripcion { color: #555; margin-bottom: 1rem; }
+
+.detalle-lista {
+  list-style: none;
+  padding: 0;
+  color: #333;
+  margin-bottom: 1rem;
+}
+.detalle-lista li { padding: 0.2rem 0; }
+
+.detalle-label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: 0.3rem;
+  color: #444;
+}
+
+.detalle-acciones { margin-top: 1.2rem; }
+.detalle-acciones button { background: #b3261e; }
+.detalle-acciones button:hover { background: #8f1e18; }
+
+.texto-cargando { color: white; text-align: center; margin-top: 3rem; }
 
 /* Comentarios */
 section {
