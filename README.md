@@ -50,8 +50,6 @@ errores 400 (validación) y 404 (recurso no encontrado).
 
 ## Equipo
 
-| Integrante   | Tareas principales |
-| ------------ | ------------------ |
-| (tu nombre)  |                    |
-| Integrante 2 |                    |
-| Integrante 3 |                    |
+Este proyecto fue desarrollado individualmente por jose antonio ccahuana lloclla, sin equipo asignado,
+con apoyo de IA (Claude) para la implementación del consumo de la API, la corrección de
+errores y el diseño visual, avanzando en 3 sesiones de trabajo en días distintos.
